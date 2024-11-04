@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Layout";
 import Home from "../Home/Home";
 import About from "../pages/About";
-import Aayka from "../pages/Aayka";
+import Aayka from "../pages/Ayaka";
 import DashboardLayout from "../layout/DashboardLayout";
 import ErrorBoundary from "../provider/ErrorBoundary";
 

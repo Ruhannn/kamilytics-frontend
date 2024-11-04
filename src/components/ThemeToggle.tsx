@@ -2,10 +2,11 @@ import { useRef } from "react";
 import { flushSync } from "react-dom";
 import { BiMoon, BiSun } from "react-icons/bi";
 
-import { useThemeContext } from "../provider/ThemeProvider";
 import { checkMotion } from "../utils/checkMotion";
+import { useThemeContext } from "../provider/ThemeProvider";
+import { motion } from "framer-motion";
 
-export default function ThemeToggle() {
+export default function ThemeToggle({ className }: { className?: string }) {
   const { theme, setTheme } = useThemeContext();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -50,8 +51,30 @@ export default function ThemeToggle() {
 
   return (
     <>
-      <button className="cursor-pointer" onClick={handleChange}>
-        {theme === "light" ? <BiMoon /> : <BiSun />}
+      <button
+        // style={{ opacity: 0.1 }}
+        className={`${className} flex relative justify-center flex-col items-center cursor-pointer rounded-md overflow-hidden dark:hover:bg-[#252938] hover:bg-[#ccccd6] p-[20px]`}
+        onClick={handleChange}
+      >
+        <motion.div
+          className="absolute"
+          initial={{ y: 0 }}
+          animate={{
+            y: theme === "light" ? -27 : 0,
+          }}
+        >
+          <BiMoon className="text-text" />
+        </motion.div>
+
+        <motion.div
+          className="absolute"
+          initial={{ y: 0 }}
+          animate={{
+            y: theme === "light" ? 0 : 27,
+          }}
+        >
+          <BiSun className="text-text" />
+        </motion.div>
       </button>
       <div ref={ref} />
     </>

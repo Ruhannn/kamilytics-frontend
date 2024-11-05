@@ -15,6 +15,7 @@ jobs:
       - name: Build
         env:
           CI: true
+          VITE_WEBHOOK: ${{ secrets.VITE_WEBHOOK }}
         run: npm run build
       - name: Archive Production Artifact
         uses: actions/upload-artifact@v4

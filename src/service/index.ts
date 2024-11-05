@@ -11,7 +11,8 @@ export const sendData = async (data: Data) => {
 
 export const getData = async () => {
     try {
-        await axios.get(`${import.meta.env.VITE_API_URL}/getdata`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/getdata`);
+        return response.data;
     } catch (error) {
         console.error(error);
     }

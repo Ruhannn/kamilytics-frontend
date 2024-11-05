@@ -16,7 +16,7 @@ export const ayakaData = [
     title: "Elegant",
   },
   {
-    src: "https://i.postimg.cc/6Q9NsJRv/105799507-p0.jpg",
+    src: "https://i.postimg.cc/hPZf2sdg/1.jpg",
     title: "Beauty",
   },
   {

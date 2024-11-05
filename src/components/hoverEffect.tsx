@@ -66,14 +66,24 @@ const Card = ({
   children: React.ReactNode;
   src: string;
 }) => {
+  const [imgIsLoading, setImgIsLoading] = useState(true);
   return (
     <div
-      style={{ backgroundImage: `url(${src})` }}
       className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden bg-no-repeat bg-top bg-background bg-cover relative z-20",
+        "rounded-2xl h-full w-full p-4 overflow-hidden relative z-20",
         className
       )}
     >
+      <motion.img
+        initial={{ opacity: 0 }}
+        animate={{ opacity: imgIsLoading ? 0 : 1 }}
+        transition={{ opacity: { delay: 0.5, duration: 0.4 } }}
+        src={src}
+        onLoad={() => setImgIsLoading(false)}
+        loading="lazy"
+        alt="background"
+        className="absolute inset-0 object-cover w-full h-full rounded-2xl"
+      />
       <div className="absolute inset-0 z-10 bg-black bg-opacity-30 rounded-2xl" />
       <div className="relative z-50">
         <div className="p-4">{children}</div>

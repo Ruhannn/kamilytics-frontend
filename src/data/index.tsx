@@ -8,7 +8,7 @@ export const ayakaData = [
     title: "Delightful",
   },
   {
-    src: "https://i.postimg.cc/tT2WvY71/28904-Kamisato-Ayaka-Genshin-Impact-Kamisato-Ayaka.png",
+    src: "https://i.postimg.cc/Vk9cHLSw/28904-Kamisato-Ayaka-Genshin-Impact-Kamisato-Ayaka.png",
     title: "Graceful",
   },
   {
@@ -16,7 +16,7 @@ export const ayakaData = [
     title: "Elegant",
   },
   {
-    src: "https://i.postimg.cc/XNbzThq4/105799507-p0.png",
+    src: "https://i.postimg.cc/6Q9NsJRv/105799507-p0.jpg",
     title: "Beauty",
   },
   {

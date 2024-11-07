@@ -1,24 +1,82 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from "react-query";
 import { getData } from "../service";
+import { GetData } from "../@types";
+import { calculatePercentage } from "../utils/calculatePercentage";
+
+
+
+interface DataSectionProps {
+  title: string;
+  items: { name: string; count: number }[];
+}
+
+const DataSection: React.FC<DataSectionProps> = ({ title, items }) => {
+  const total = items.reduce((sum, item) => sum + item.count, 0);
+
+  return (
+    <div className="p-4 rounded-lg bg-secondary">
+      <h2 className="mb-2 text-lg font-semibold">{title}</h2>
+      <ul>
+        {items
+          .sort((a, b) => b.count - a.count)
+          .map((item, index) => (
+            <li key={index} className="flex justify-between py-1">
+              <span>{item.name}</span>
+              <span>
+                {item.count} ({calculatePercentage(item.count, total)}%)
+              </span>
+            </li>
+          ))}
+      </ul>
+    </div>
+  );
+};
 
 export default function Dashboard() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<GetData>({
     queryKey: ["dashboard"],
     queryFn: getData,
   });
-  console.log(data);
+
   if (isLoading) return <div>Loading...</div>;
+  if (!data) return <div>No data available</div>;
 
   return (
-    <div className="flex flex-1">
-      <div className="flex flex-col flex-1 w-full h-full gap-2 p-2 bg-white border md:p-10 rounded-tl-2xl border-neutral-200 dark:border-neutral-700 dark:bg-neutral-900">
-        {data?.map((item: any, index: number) => (
-          <div
-            className="w-full my-auto text-center bg-gray-100 rounded-lg h-2a0 dark:bg-neutral-800 animate-pulse"
-            key={index}
-          >{`${index + 1}.${item.Browser}`}</div>
-        ))}
+    <div className="flex flex-col w-full min-h-screen gap-4 p-6 text-text">
+      <h1 className="mb-4 text-2xl font-semibold">Analytics Dashboard</h1>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <DataSection
+          title="Pages"
+          items={data.pages.map(({ page, count }) => ({ name: page, count }))}
+        />
+        <DataSection
+          title="Browsers"
+          items={data.browsers.map(({ browser, count }) => ({
+            name: browser,
+            count,
+          }))}
+        />
+        <DataSection
+          title="Devices"
+          items={data.devices.map(({ device, count }) => ({
+            name: device,
+            count,
+          }))}
+        />
+        <DataSection
+          title="Operating Systems"
+          items={data.operatingSystems.map(({ os, count }) => ({
+            name: os,
+            count,
+          }))}
+        />
+        <DataSection
+          title="Countries"
+          items={data.countries.map(({ country, count }) => ({
+            name: country,
+            count,
+          }))}
+        />
       </div>
     </div>
   );

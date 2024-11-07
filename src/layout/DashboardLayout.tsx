@@ -1,42 +1,25 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { BsArrowLeft } from "react-icons/bs";
-import { CiSettings } from "react-icons/ci";
-import { TbBrandTabler, TbUserBolt } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { cn } from "../utils/cn";
 import { Sidebar, SidebarBody, SidebarLink } from "../components/Sidebar";
 import { BiHome } from "react-icons/bi";
 import Dashboard from "../components/Dashboard";
+import ThemeToggle from "../components/ThemeToggle";
 
 export default function DashboardLayout() {
-  const links = [
-    {
-      label: "Dashboard",
-      href: "#",
-      icon: <TbBrandTabler className="flex-shrink-0 w-5 h-5 text-text" />,
-    },
-    {
-      label: "Profile",
-      href: "#",
-      icon: <TbUserBolt className="flex-shrink-0 w-5 h-5 text-text" />,
-    },
-    {
-      label: "Settings",
-      href: "#",
-      icon: <CiSettings className="flex-shrink-0 w-5 h-5 text-text" />,
-    },
-    {
-      label: "Logout",
-      href: "#",
-      icon: <BsArrowLeft className="flex-shrink-0 w-5 h-5 text-text" />,
-    },
-  ];
+  // const links = [
+  //   {
+  //     label: "Dashboard",
+  //     href: "#",
+  //     icon: <TbBrandTabler className="flex-shrink-0 w-5 h-5 text-text" />,
+  //   },
+  // ];
   const [open, setOpen] = useState(false);
   return (
     <div
       className={cn(
-        "flex flex-col md:flex-row bg-background w-full flex-1",
+        "flex flex-col md:flex-row bg-background w-full flex-1 overflow-x-hidden",
         "min-h-screen"
       )}
     >
@@ -72,10 +55,13 @@ export default function DashboardLayout() {
                 </motion.span>
               </Link>
             )}
-            <div className="flex flex-col gap-2 mt-8">
+            {/* <div className="flex flex-col gap-2 mt-8">
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
               ))}
+            </div> */}
+            <div className="flex flex-col items-center justify-center mt-5">
+              <ThemeToggle className="w-full" />
             </div>
           </div>
           <div>

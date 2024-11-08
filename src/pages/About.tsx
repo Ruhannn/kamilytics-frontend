@@ -16,6 +16,7 @@ export default function About() {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setActive(false);
+        setIsPlaying(false);
       }
     }
 
@@ -31,6 +32,7 @@ export default function About() {
 
   useOutsideClick(ref, () => {
     setActive(null);
+    setIsPlaying(false);
   });
   const togglePlayPause = () => {
     if (audioRef.current) {
@@ -117,7 +119,11 @@ export default function About() {
                   >
                     {isPlaying ? "pause" : "play"}
                   </motion.button>
-                  <audio ref={audioRef} src={active.src} />
+                  <audio
+                    ref={audioRef}
+                    onEnded={() => setIsPlaying(false)}
+                    src={active.src}
+                  />
                 </div>
                 <div className="relative px-4 pt-4">
                   <motion.div

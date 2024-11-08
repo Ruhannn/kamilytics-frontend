@@ -114,7 +114,7 @@ function Navbar() {
       <AnimatePresence>
         {showModal && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-background"
+            className="fixed inset-0 flex items-center justify-center z-[1000] bg-background"
             variants={modalVariants}
             initial="hidden"
             animate="visible"
@@ -136,13 +136,17 @@ function Navbar() {
             >
               <div className="flex flex-col items-center justify-center h-full gap-8">
                 {navLinks.map((link, index) => (
-                  <motion.span
+                  <MotionLink
+                    onClick={() => {
+                      setShowModal(!showModal);
+                    }}
+                    to={link.url}
                     key={index}
                     className="text-2xl font-light cursor-pointer text-text"
                     variants={linkItemVariants}
                   >
                     {link.title}
-                  </motion.span>
+                  </MotionLink>
                 ))}
               </div>
             </motion.div>

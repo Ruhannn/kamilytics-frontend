@@ -84,7 +84,7 @@ export default function Ayaka() {
     //   )}
     // </div>
     <motion.div
-      className="flex flex-col items-center justify-center max-w-5xl min-h-screen mx-auto"
+      className="flex flex-col items-center justify-center max-w-5xl min-h-screen px-4 mx-auto"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}

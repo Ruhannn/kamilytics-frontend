@@ -5,7 +5,7 @@ import { GetData } from "../@types";
 import { calculatePercentage } from "../utils/calculatePercentage";
 import { Desktop, Mobile, Tablet } from "../icons";
 import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
-import { CountryFlag } from "react-countryname-flag";
+import { getCountryCode } from "../utils/getCountryCode";
 
 export default function Dashboard() {
   const { data, isLoading } = useQuery<GetData>({
@@ -72,7 +72,7 @@ const DataSection: React.FC<DataSectionProps> = ({ title, items }) => {
       </div>
       <ul>
         {items
-          .sort((a, b) => b.count - a.count)
+          .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
           .map((item, index) => {
             let name: null | string = item.name.toLowerCase();
             let img: any | string;
@@ -212,10 +212,12 @@ const CountrySection: React.FC<DataSectionProps> = ({ title, items }) => {
                 key={index}
                 className="flex items-center justify-between py-2 border-b border-gray-200 last:border-0"
               >
-                <div className="flex items-center space-x-2">
-                  <CountryFlag
-                    countryName={item.name}
-                    style={{ fontSize: "20px" }}
+                <div className="flex items-center space-x-2 [&_img]:size-5">
+                  <img
+                    src={`https://flagsapi.com/${getCountryCode(
+                      item.name
+                    )}/flat/64.png`}
+                    alt={`${item.name} flag image`}
                   />
                   <span className="text-sm font-medium">
                     {capitalizeFirstLetter(item.name)}

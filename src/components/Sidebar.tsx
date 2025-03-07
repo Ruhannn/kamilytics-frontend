@@ -1,8 +1,7 @@
-import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { cn } from "../utils/cn";
-import { MdClose, MdMenu } from "react-icons/md";
+import React, { createContext, useContext, useState } from "react";
 import { Link, LinkProps } from "react-router-dom";
+import { cn } from "../utils/cn";
 
 interface Links {
   label: string;
@@ -63,7 +62,10 @@ export const Sidebar = ({
   animate?: boolean;
 }) => {
   return (
-    <SidebarProvider open={open} setOpen={setOpen} animate={animate}>
+    <SidebarProvider
+      open={open}
+      setOpen={setOpen}
+      animate={animate}>
       {children}
     </SidebarProvider>
   );
@@ -96,8 +98,7 @@ const DesktopSidebar = ({
         }}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
-        {...props}
-      >
+        {...props}>
         {children}
       </motion.div>
     </>
@@ -116,10 +117,38 @@ const MobileSidebar = ({
         className={cn(
           "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between dark:bg-[#121216] bg-[#c7c6ce] w-full"
         )}
-        {...props}
-      >
-        <div className="z-20 flex justify-end w-full">
-          <MdMenu className="text-text" onClick={() => setOpen(!open)} />
+        {...props}>
+        <div className="z-[200] flex justify-end w-full">
+          <button
+            className="group cursor-pointer"
+            onClick={() => setOpen((prevState) => !prevState)}
+            aria-expanded={open}
+            aria-label={open ? "Close menu" : "Open menu"}>
+            <svg
+              className="pointer-events-none"
+              width={16}
+              height={16}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M4 12L20 12"
+                className="origin-center -translate-y-[7px] transition-all duration-300 [transition-timing-function:cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]"
+              />
+              <path
+                d="M4 12H20"
+                className="origin-center transition-all duration-300 [transition-timing-function:cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45"
+              />
+              <path
+                d="M4 12H20"
+                className="origin-center translate-y-[7px] transition-all duration-300 [transition-timing-function:cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]"
+              />
+            </svg>
+          </button>
         </div>
         <AnimatePresence>
           {open && (
@@ -134,14 +163,7 @@ const MobileSidebar = ({
               className={cn(
                 "fixed h-full w-full inset-0 dark:bg-[#121216] bg-[#c7c6ce] p-10 z-[100] flex flex-col justify-between",
                 className
-              )}
-            >
-              <div
-                className="absolute z-50 right-10 top-10 text-text"
-                onClick={() => setOpen(!open)}
-              >
-                <MdClose />
-              </div>
+              )}>
               {children}
             </motion.div>
           )}
@@ -168,8 +190,7 @@ export const SidebarLink = ({
         "flex items-center justify-start gap-2  group/sidebar py-2",
         className
       )}
-      {...props}
-    >
+      {...props}>
       {link.icon}
 
       <motion.span
@@ -177,8 +198,7 @@ export const SidebarLink = ({
           display: animate ? (open ? "inline-block" : "none") : "inline-block",
           opacity: animate ? (open ? 1 : 0) : 1,
         }}
-        className="text-text text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
-      >
+        className="text-text text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0">
         {link.label}
       </motion.span>
     </Link>

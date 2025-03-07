@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from "react-query";
-import { getData } from "../service";
 import { GetData } from "../@types";
-import { calculatePercentage } from "../utils/calculatePercentage";
 import { Desktop, Mobile, Tablet } from "../icons";
+import { getData } from "../service";
+import { calculatePercentage } from "../utils/calculatePercentage";
 import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
 import { getCountryCode } from "../utils/getCountryCode";
+import MapChart from "./MapChart";
 
 export default function Dashboard() {
   const { data, isLoading } = useQuery<GetData>({
@@ -52,6 +53,7 @@ export default function Dashboard() {
             count,
           }))}
         />
+        <MapChart data={data.countries} />
       </div>
     </div>
   );
@@ -171,11 +173,13 @@ const DataSection: React.FC<DataSectionProps> = ({ title, items }) => {
             return (
               <li
                 key={index}
-                className="flex items-center justify-between py-2 border-b border-gray-200 last:border-0"
-              >
+                className="flex items-center justify-between py-2 border-b border-gray-200 last:border-0">
                 <div className="flex items-center space-x-2 [&_img]:size-5">
                   {img && typeof img === "string" ? (
-                    <img src={img} alt={item.name} />
+                    <img
+                      src={img}
+                      alt={item.name}
+                    />
                   ) : (
                     <div>{img}</div>
                   )}
@@ -210,8 +214,7 @@ const CountrySection: React.FC<DataSectionProps> = ({ title, items }) => {
             return (
               <li
                 key={index}
-                className="flex items-center justify-between py-2 border-b border-gray-200 last:border-0"
-              >
+                className="flex items-center justify-between py-2 border-b border-gray-200 last:border-0">
                 <div className="flex items-center space-x-2 [&_img]:size-5">
                   <img
                     src={`https://flagsapi.com/${getCountryCode(
